@@ -14,6 +14,7 @@ class Dispositivo:
     #                segundo valor como pendiente y ordenada
     #                -> si parametro 1 es un string, se lo considera como
     #                archivo con datos de calibración
+    #                -> si no se ingresa parametro1 queda (1,0) por defecto
     def __init__(self,name,parametro1=(1,0)):
         self.name = name
         
