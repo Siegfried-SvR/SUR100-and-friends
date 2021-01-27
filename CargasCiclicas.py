@@ -73,7 +73,7 @@ class Dispositivo:
                     , 4))
                 )
         plt.text(0, (max(y)+min(y))*.4, "R2: "+str(self.R2))
-        plt.savefig(self.name+"_cal.png")
+        # plt.savefig(self.name+"_cal.png")
         plt.clf()
         
     def reporteCalibracion(self):
@@ -107,8 +107,8 @@ class Canal:
     #Lectura de datos de DAQ, col_x y col_y son los indices de las
     #columnas con los datos
     def LoadUSB1208FS(self,col_x,col_y):
-        df = pd.read_table(self.archivo,skiprows=(6))
-        df = df.to_dict()
+        dfx = pd.read_table(self.archivo,skiprows=(6))
+        df = dfx.to_dict()
         #recupero las claves de los diccionarios
         keyl=[]
         for k1 in df:
@@ -148,7 +148,8 @@ class Canal:
             else:
                 self._x[k1] = float(df[keyl[col_x]][k1])
             self._y[k1] = float(df[keyl[col_y]][k1])
-    
+        print()
+
     #Lectura de datos de la INSTRON8802, col_x y col_y son los indices
     #de las columnas con los datos
     def LoadINSTRON8802(self,col_x,col_y):
@@ -373,16 +374,16 @@ def med_dev(x):
 
 
 #Cargo y calibro LVDTs y celda de carga
-lvdt1 = Dispositivo("LVDT1","./calibraciones/lvdt1.txt")
-lvdt2 = Dispositivo("LVDT2","./calibraciones/lvdt2.txt")
-lvdt3 = Dispositivo("LVDT3","./calibraciones/lvdt3.txt")
-lvdt4 = Dispositivo("LVDT4","./calibraciones/lvdt4.txt")
+lvdt1 = Dispositivo("LVDT1","../datos/calibraciones/lvdt1.txt")
+lvdt2 = Dispositivo("LVDT2","../datos/calibraciones/lvdt2.txt")
+lvdt3 = Dispositivo("LVDT3","../datos/calibraciones/lvdt3.txt")
+lvdt4 = Dispositivo("LVDT4","../datos/calibraciones/lvdt4.txt")
 carga = Dispositivo("Celda de carga",(2/5,0))
 
 
 #archivos a leer
-F1 = "MCC1.csv"
-F2 = "MCC2.csv"
+F1 = "../datos/Apriete1/MCC1.csv"
+F2 = "../datos/Apriete1/MCC2.csv"
 
 
 #Cargo canales, leo los archivos y convierto tensión a desplazamiento
@@ -452,7 +453,7 @@ plt.axis((0,22.5,-1.5,1.5))
 plt.title("Curva desplazamiento-carga")
 plt.ylabel("Desplazamiento /mm")
 plt.xlabel("Carga /kN")
-plt.savefig("Desplazamiento-Carga.png")
+# plt.savefig("Desplazamiento-Carga.png")
 plt.show()
 plt.clf()
 
@@ -463,7 +464,7 @@ plt.grid()
 plt.xlabel("Tiempo /s")
 plt.ylabel("Carga /kN")
 plt.axis((0,max(carg._x),0,25))
-plt.savefig("Carga (L).png")
+# plt.savefig("Carga (L).png")
 
 #recupero indices con las dos referencias
 ka = carg.indicex(pts[0][0])
