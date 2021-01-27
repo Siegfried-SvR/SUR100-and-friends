@@ -74,7 +74,9 @@ class Dispositivo:
             + "x+" + str(np.round(self.offset
                                   , 4))
         )
-        ax.text(0, (max(self.y) + min(self.y)) * .4, "R2: " + str(round(self.R2,4)))
+        #Dan: Personalmente, R2 o lo truncaría (truncate?,floor?) a 4 decimales o le dejaría
+        #     todas las cifras para evitar que diga R2 = 1
+        ax.text(0, (max(self.y) + min(self.y)) * .4, "R2: " + str(np.round(self.R2,4)))
         # plt.savefig(self.name + "_cal.png")
         plt.show()
         plt.clf()
